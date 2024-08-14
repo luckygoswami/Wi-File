@@ -12,10 +12,27 @@
     <h1>Devices Connected on the Same Network</h1>
     <ul id="device-list"></ul>
 
+    <h2>Upload a File</h2>
+    <form
+      id="upload-form"
+      enctype="multipart/form-data"
+    >
+      <input
+        type="file"
+        name="file"
+        id="file-input"
+      />
+      <button type="submit">Upload</button>
+    </form>
+
+    <h2>Available Files</h2>
+    <ul id="file-list"></ul>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       const socket = io();
 
+      // Update the list of connected devices
       socket.on("updateDeviceList", (devices) => {
         const deviceList = document.getElementById("device-list");
         deviceList.innerHTML = "";
@@ -25,6 +42,39 @@
           li.textContent = `Device ID: ${id}`;
           deviceList.appendChild(li);
         }
+      });
+
+      // Handle file uploads
+      document.getElementById("upload-form").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData();
+        const fileInput = document.getElementById("file-input");
+        formData.append("file", fileInput.files[0]);
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.text())
+          .then((data) => {
+            alert(data);
+            fileInput.value = ""; // Clear the file input
+          })
+          .catch((err) => {
+            console.error("Error uploading file:", err);
+          });
+      });
+
+      // Update the list of available files when a new file is uploaded
+      socket.on("fileUploaded", ({ fileName, filePath }) => {
+        const fileList = document.getElementById("file-list");
+        const li = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = filePath;
+        link.download = fileName;
+        link.textContent = fileName;
+        li.appendChild(link);
+        fileList.appendChild(li);
       });
     </script>
   </body>

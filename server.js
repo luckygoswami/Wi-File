@@ -2,15 +2,33 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const path = require("path");
+const multer = require("multer");
+const fs = require("fs");
 
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+// Setup multer for file uploads
+const upload = multer({ dest: "uploads/" });
+
+let connectedDevices = {};
+
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, "public")));
 
-let connectedDevices = {};
+// Handle file uploads
+app.post("/upload", upload.single("file"), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send("No file uploaded.");
+  }
+  const filePath = `/uploads/${req.file.filename}`;
+  io.emit("fileUploaded", { fileName: req.file.originalname, filePath });
+  res.status(200).send("File uploaded successfully.");
+});
+
+// Serve uploaded files
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Handle new socket connections
 io.on("connection", (socket) => {
