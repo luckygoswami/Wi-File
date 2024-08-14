@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>File Sharing App</title>
+  </head>
+  <body>
+    <h1>Devices Connected on the Same Network</h1>
+    <ul id="device-list"></ul>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      socket.on("updateDeviceList", (devices) => {
+        const deviceList = document.getElementById("device-list");
+        deviceList.innerHTML = "";
+
+        for (let id in devices) {
+          const li = document.createElement("li");
+          li.textContent = `Device ID: ${id}`;
+          deviceList.appendChild(li);
+        }
+      });
+    </script>
+  </body>
+</html>
