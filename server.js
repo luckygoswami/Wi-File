@@ -56,11 +56,11 @@ function clearUploadsDirectory() {
 io.on("connection", (socket) => {
   console.log("New device connected:", socket.id);
 
-  // Store the connected device
-  connectedDevices[socket.id] = { id: socket.id };
-
-  // Broadcast the updated list of devices
-  io.emit("updateDeviceList", connectedDevices);
+  // When the client sends a device name, store it
+  socket.on("setDeviceName", (name) => {
+    connectedDevices[socket.id] = { id: socket.id, name: name };
+    io.emit("updateDeviceList", connectedDevices);
+  });
 
   // Handle disconnections
   socket.on("disconnect", () => {
@@ -68,7 +68,7 @@ io.on("connection", (socket) => {
     delete connectedDevices[socket.id];
     io.emit("updateDeviceList", connectedDevices);
 
-    // Check if all devices are disconnected
+    // Clear uploads directory if no devices are connected
     if (Object.keys(connectedDevices).length === 0) {
       clearUploadsDirectory();
     }
