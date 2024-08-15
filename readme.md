@@ -1,7 +1,3 @@
-Here's a "How to Use" guide for your Wi-Fi File Sharing web app:
-
----
-
 # How to Use the Wi-Fi File Sharing App
 
 ## Introduction
@@ -67,3 +63,5 @@ Ensure all devices you want to share files with are connected to the same Wi-Fi 
 - **Files Not Uploading:** Check the file size and format. Some browsers may have restrictions on certain file types or sizes.
 
 ---
+
+_Made with 🧠 by LuckyGoswami_
