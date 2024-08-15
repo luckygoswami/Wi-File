@@ -24,7 +24,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
   }
 
   // Find the device name associated with the socket ID
-  const deviceName = connectedDevices[req.body.socketId]?.name || "Unknown Device";
+  const deviceName = connectedDevices[req.body.socketId]?.name || undefined;
   const filePath = `/uploads/${req.file.filename}`;
 
   // Emit the file upload event with the file info and device name
@@ -66,11 +66,18 @@ function clearUploadsDirectory() {
 io.on("connection", (socket) => {
   console.log("New device connected:", socket.id);
 
-  // Store the connected device
-  connectedDevices[socket.id] = { id: socket.id };
+  io.emit("getDeviceType");
 
-  // Broadcast the updated list of devices
-  io.emit("updateDeviceList", connectedDevices);
+  // Store the connected device
+  socket.on("sendDeviceType", (detectDevice) => {
+    connectedDevices[socket.id] = {
+      id: socket.id,
+      type: detectDevice,
+    };
+
+    // Broadcast the updated list of devices
+    io.emit("updateDeviceList", connectedDevices);
+  });
 
   // When the client sends a device name, store it
   socket.on("setDeviceName", (deviceName, deviceType) => {
@@ -80,7 +87,6 @@ io.on("connection", (socket) => {
       type: deviceType,
     };
     io.emit("updateDeviceList", connectedDevices);
-    console.log(connectedDevices);
   });
 
   // Handle disconnections

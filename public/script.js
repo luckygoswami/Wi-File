@@ -20,6 +20,10 @@ function detectDevice() {
   return deviceType;
 }
 
+socket.on("getDeviceType", () => {
+  socket.emit("sendDeviceType", detectDevice());
+});
+
 // Prompt the user for a device name
 document.getElementById("device-name-submit").addEventListener("click", () => {
   const deviceName = document.getElementById("device-name-input").value.trim();
@@ -44,9 +48,22 @@ socket.on("updateDeviceList", (devices) => {
 
   for (let id in devices) {
     const li = document.createElement("li");
-    li.textContent = `${
+    const deviceType = devices[id].type;
+
+    function deviceIcon() {
+      if (deviceType == "Desktop") {
+        return `<i class="fa-solid fa-desktop"></i>`;
+      } else if (deviceType == "Mobile") {
+        return `<i class="fa-solid fa-mobile-screen-button"></i>`;
+      } else if (deviceType == "Tablet") {
+        return `<i class="fa-solid fa-tablet-screen-button"></i>`;
+      }
+    }
+
+    li.innerHTML = `${deviceIcon()} ${
       devices[id].name ? `${devices[id].name}` : ""
-    } (device id: ${id})`; // Display the device name
+    } (device id: ${id})`;
+
     deviceList.appendChild(li);
   }
 });
@@ -80,7 +97,7 @@ socket.on("fileUploaded", ({ fileName, filePath, deviceName }) => {
   const link = document.createElement("a");
   link.href = filePath;
   link.download = fileName;
-  link.textContent = `${fileName} (Shared by ${deviceName})`; // Display the file name and device name
+  link.textContent = `${fileName} ${deviceName ? `shared by ${deviceName}` : ""}`; // Display the file name and device name
   li.appendChild(link);
   fileList.appendChild(li);
 });
