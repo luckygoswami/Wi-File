@@ -1,16 +1,6 @@
 const socket = io();
 
-// Update the list of connected devices
-socket.on("updateDeviceList", (devices) => {
-  const deviceList = document.getElementById("device-list");
-  deviceList.innerHTML = "";
-
-  for (let id in devices) {
-    const li = document.createElement("li");
-    li.textContent = `Device ID: ${id}`;
-    deviceList.appendChild(li);
-  }
-});
+let currentSocketId = null;
 
 // Prompt the user for a device name
 document.getElementById("device-name-submit").addEventListener("click", () => {
@@ -22,6 +12,11 @@ document.getElementById("device-name-submit").addEventListener("click", () => {
   } else {
     alert("Please enter a device name.");
   }
+});
+
+// Store the current socket ID for future use
+socket.on("connect", () => {
+  currentSocketId = socket.id;
 });
 
 // Update the list of connected devices
@@ -42,6 +37,7 @@ document.getElementById("upload-form").addEventListener("submit", (e) => {
   const formData = new FormData();
   const fileInput = document.getElementById("file-input");
   formData.append("file", fileInput.files[0]);
+  formData.append("socketId", currentSocketId); // Add the socket ID to the form data
 
   fetch("/upload", {
     method: "POST",
@@ -58,13 +54,13 @@ document.getElementById("upload-form").addEventListener("submit", (e) => {
 });
 
 // Update the list of available files when a new file is uploaded
-socket.on("fileUploaded", ({ fileName, filePath }) => {
+socket.on("fileUploaded", ({ fileName, filePath, deviceName }) => {
   const fileList = document.getElementById("file-list");
   const li = document.createElement("li");
   const link = document.createElement("a");
   link.href = filePath;
   link.download = fileName;
-  link.textContent = fileName;
+  link.textContent = `${fileName} (Shared by ${deviceName})`; // Display the file name and device name
   li.appendChild(link);
   fileList.appendChild(li);
 });

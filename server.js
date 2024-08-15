@@ -22,8 +22,18 @@ app.post("/upload", upload.single("file"), (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }
+
+  // Find the device name associated with the socket ID
+  const deviceName = connectedDevices[req.body.socketId]?.name || "Unknown Device";
   const filePath = `/uploads/${req.file.filename}`;
-  io.emit("fileUploaded", { fileName: req.file.originalname, filePath });
+
+  // Emit the file upload event with the file info and device name
+  io.emit("fileUploaded", {
+    fileName: req.file.originalname,
+    filePath: filePath,
+    deviceName: deviceName,
+  });
+
   res.status(200).send("File uploaded successfully.");
 });
 
