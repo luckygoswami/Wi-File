@@ -2,13 +2,31 @@ const socket = io();
 
 let currentSocketId = null;
 
+// Detect device type
+function detectDevice() {
+  const ua = navigator.userAgent;
+  const width = window.innerWidth;
+
+  let deviceType;
+
+  if (/mobile/i.test(ua) || width < 768) {
+    deviceType = "Mobile";
+  } else if (/tablet/i.test(ua) || (width >= 768 && width < 1024)) {
+    deviceType = "Tablet";
+  } else {
+    deviceType = "Desktop";
+  }
+
+  return deviceType;
+}
+
 // Prompt the user for a device name
 document.getElementById("device-name-submit").addEventListener("click", () => {
   const deviceName = document.getElementById("device-name-input").value.trim();
   if (deviceName) {
     // Send the device name to the server
-    socket.emit("setDeviceName", deviceName);
-    document.getElementById("device-name-prompt").style.display = "none";
+    socket.emit("setDeviceName", deviceName, detectDevice());
+    // document.getElementById("device-name-prompt").style.display = "none";
   } else {
     alert("Please enter a device name.");
   }

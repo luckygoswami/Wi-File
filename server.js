@@ -65,11 +65,17 @@ function clearUploadsDirectory() {
 // Handle new socket connections
 io.on("connection", (socket) => {
   console.log("New device connected:", socket.id);
+  io.emit("updateDeviceList", connectedDevices);
 
   // When the client sends a device name, store it
-  socket.on("setDeviceName", (name) => {
-    connectedDevices[socket.id] = { id: socket.id, name: name };
+  socket.on("setDeviceName", (deviceName, deviceType) => {
+    connectedDevices[socket.id] = {
+      id: socket.id,
+      name: deviceName,
+      type: deviceType,
+    };
     io.emit("updateDeviceList", connectedDevices);
+    console.log(connectedDevices);
   });
 
   // Handle disconnections

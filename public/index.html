@@ -18,21 +18,21 @@
       <p>Share files easily across devices connected to the same Wi-Fi network.</p>
     </header>
 
-    <!-- Add a prompt to ask for the device name -->
-    <div id="device-name-prompt">
-      <label for="device-name-input">Enter your device name:</label>
-      <input
-        type="text"
-        id="device-name-input"
-        placeholder="Device Name"
-      />
-      <button id="device-name-submit">Submit</button>
-    </div>
-
     <main>
-      <section id="devices">
-        <h2>Connected Devices</h2>
-        <ul id="device-list"></ul>
+      <!-- Prompt to ask for the device name -->
+      <section id="device-name-prompt">
+        <label for="device-name-input"
+          >Enter your device name to identify the sender of the file:</label
+        >
+        <input
+          type="text"
+          id="device-name-input"
+          placeholder="e.g. John's mobile"
+        />
+        <button id="device-name-submit">Submit</button>
+        <p>
+          device will be shown in connected devices list after submitting the name
+        </p>
       </section>
 
       <section id="file-upload">
@@ -49,6 +49,11 @@
           />
           <button type="submit">Upload</button>
         </form>
+      </section>
+
+      <section id="devices">
+        <h2>Connected Devices</h2>
+        <ul id="device-list"></ul>
       </section>
 
       <section id="files">
