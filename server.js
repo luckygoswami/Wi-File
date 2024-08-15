@@ -30,6 +30,28 @@ app.post("/upload", upload.single("file"), (req, res) => {
 // Serve uploaded files
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// Clear the uploads directory
+function clearUploadsDirectory() {
+  const directory = "uploads";
+
+  fs.readdir(directory, (err, files) => {
+    if (err) {
+      console.error("Unable to read uploads directory:", err);
+      return;
+    }
+
+    for (const file of files) {
+      fs.unlink(path.join(directory, file), (err) => {
+        if (err) {
+          console.error("Unable to delete file:", err);
+        }
+      });
+    }
+
+    console.log("Uploads directory cleared.");
+  });
+}
+
 // Handle new socket connections
 io.on("connection", (socket) => {
   console.log("New device connected:", socket.id);
@@ -45,6 +67,11 @@ io.on("connection", (socket) => {
     console.log("Device disconnected:", socket.id);
     delete connectedDevices[socket.id];
     io.emit("updateDeviceList", connectedDevices);
+
+    // Check if all devices are disconnected
+    if (Object.keys(connectedDevices).length === 0) {
+      clearUploadsDirectory();
+    }
   });
 });
 
