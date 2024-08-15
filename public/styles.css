@@ -34,7 +34,6 @@ header {
 }
 
 main {
-  border: 5px solid red;
   flex: 1;
   padding: 20px;
   display: flex;

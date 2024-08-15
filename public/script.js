@@ -44,7 +44,9 @@ socket.on("updateDeviceList", (devices) => {
 
   for (let id in devices) {
     const li = document.createElement("li");
-    li.textContent = `${devices[id].name} (${id})`; // Display the device name
+    li.textContent = `${
+      devices[id].name ? `${devices[id].name}` : ""
+    } (device id: ${id})`; // Display the device name
     deviceList.appendChild(li);
   }
 });
