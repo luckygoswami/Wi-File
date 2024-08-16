@@ -6,11 +6,8 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
-    <title>Wi-Fi File Sharing</title>
-    <link
-      rel="stylesheet"
-      href="styles.css"
-    />
+    <title>Wi-File</title>
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -18,10 +15,29 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:wght@100;300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="styles.css"
+    />
   </head>
   <body>
     <header>
-      <h1>Wi-Fi File Sharing</h1>
+      <h1>Wi-File</h1>
       <p>Share files easily across devices connected to the same Wi-Fi network.</p>
     </header>
 
@@ -29,47 +45,95 @@
       <!-- Prompt to ask for the device name -->
       <section id="device-name-prompt">
         <label for="device-name-input"
-          >Enter your device name to identify the sender of the file:
+          >Enter your device name to identify the files uploaded by you:
         </label>
         <input
           type="text"
           id="device-name-input"
         />
-        <button id="device-name-submit">Submit</button>
-        <p>
-          device will be shown in connected devices list after submitting the name
-        </p>
+        <span class="button-span">
+          <div
+            class="set-button"
+            id="device-name-submit"
+          >
+            <div class="container">
+              <div class="tick"></div>
+            </div>
+          </div>
+        </span>
       </section>
 
-      <section id="file-upload">
+      <!-- Upload File Section -->
+      <section
+        id="file-upload"
+        class="upload-section"
+      >
         <h2>Upload a File</h2>
         <form
           id="upload-form"
           enctype="multipart/form-data"
         >
-          <input
-            type="file"
-            name="file"
-            id="file-input"
-            required
-          />
-          <button type="submit">Upload</button>
+          <div class="upload-container">
+            <label
+              for="file-input"
+              class="file-label"
+            >
+              <span class="file-text">Choose a file</span>
+              <input
+                type="file"
+                name="file"
+                id="file-input"
+                required
+              />
+            </label>
+            <button
+              type="submit"
+              class="upload-btn"
+            >
+              Upload
+            </button>
+          </div>
+          <!-- Placeholder for displaying the selected file name -->
+          <p
+            id="file-name-display"
+            class="file-name-display"
+          >
+            No file chosen
+          </p>
         </form>
       </section>
 
+      <!-- Available files section -->
+      <section id="files">
+        <h2>Available Files</h2>
+        <ul id="file-list"></ul>
+        <p
+          id="no-files-message"
+          class="no-files-message"
+        >
+          no files uploaded yet
+        </p>
+      </section>
+
+      <!-- Connected devices section -->
       <section id="devices">
         <h2>Connected Devices</h2>
         <ul id="device-list"></ul>
       </section>
-
-      <section id="files">
-        <h2>Available Files</h2>
-        <ul id="file-list"></ul>
-      </section>
     </main>
 
     <footer>
-      <p>Wi-Fi File Sharing &copy; 2024. Simple and secure file sharing.</p>
+      <p>Wi-File &copy; 2024. Simple and secure file sharing.</p>
+      <p>
+        Made with 🧠 by
+        <a
+          href="https://www.github.com/luckygoswami"
+          style="text-decoration: none; color: black; font-weight: 500"
+          target="_blank"
+        >
+          Lucky Goswami</a
+        >
+      </p>
     </footer>
 
     <script src="/socket.io/socket.io.js"></script>

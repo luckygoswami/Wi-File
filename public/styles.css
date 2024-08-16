@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0%;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
 
 html,
@@ -12,95 +13,238 @@ body {
 
 /* General Styles */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  background-color: #f4f7f6;
   color: #333;
-  margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   min-height: 100vh;
 }
 
-header {
-  background-color: #007bff;
-  color: white;
-  padding: 20px;
+header,
+footer {
   text-align: center;
-
-  h1 {
-    margin: 0;
-  }
-}
-
-main {
-  flex: 1;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-section {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 500px;
-}
-
-ul {
-  list-style-type: none;
-}
-
-li {
   margin: 10px 0;
 }
 
-/* File Upload Styles */
-#upload-form {
+header h1 {
+  font-size: 2.5em;
+  color: #2c3e50;
+}
+
+main {
+  overflow: auto;
+  width: 100%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 90vh;
+  margin: 0 auto;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  &::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+}
+
+h2 {
+  font-size: 1.8em;
+  color: #34495e;
+  border-bottom: 2px solid #2980b9;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+
+/* Device name prompt */
+#device-name-prompt {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
 }
 
-#file-input {
-  margin-bottom: 10px;
+#device-name-input {
+  font-family: inherit;
+  width: 130px;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1rem;
+  color: gray;
+  text-align: center;
+  padding: 2px 0;
+  background: transparent;
+
+  &::placeholder {
+    font-size: 0.8rem;
+    opacity: 0.5;
+  }
 }
 
-button {
-  padding: 10px;
-  border: none;
-  background-color: #007bff;
+.button-span {
+  display: inline-block;
+}
+
+.set-button,
+.tick {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+.set-button {
+  width: 35px;
+  height: 20px;
+  background: dodgerblue;
+  border-radius: 7px;
+  transition: all 0.3s cubic-bezier(0.67, 0.17, 0.4, 0.83);
+}
+
+.set-button svg {
+  transform: rotate(180deg);
+  transition: all 0.5s;
+}
+
+.button__circle {
+  width: 20px;
+  height: 20px;
+  background: mediumseagreen;
+  border-radius: 50%;
+  transform: rotate(-180deg);
+}
+
+.set-button:hover {
+  cursor: pointer;
+}
+
+.tick {
   color: white;
-  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all 0.9s;
+}
+
+/* Upload Section Styles */
+.upload-section {
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Styling for file name display */
+.file-name-display {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #2c3e50;
+  font-weight: bold;
+  text-align: center;
+}
+
+.upload-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.file-label {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1em;
+  transition: background-color 0.3s ease;
+}
+
+.file-label:hover {
+  background-color: #2980b9;
+}
+
+.file-label input[type="file"] {
+  display: none;
+}
+
+.file-text {
+  margin-right: 10px;
+}
+
+.upload-btn {
+  background-color: #2ecc71;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
 }
 
-/* Footer Styles */
-footer {
-  background-color: #007bff;
-  color: white;
+.upload-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Styling for "No files available" message */
+.no-files-message {
+  font-size: 1.2em;
+  color: #7f8c8d;
   text-align: center;
-  padding: 10px;
-  margin-top: auto;
+  margin-bottom: 20px;
+  display: none; /* Initially hidden */
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  main {
+/* Device List and File List Styles */
+#device-list,
+#file-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+#device-list li,
+#file-list li {
+  background-color: #ecf0f1;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#device-list li:hover,
+#file-list li:hover {
+  background-color: #bdc3c7;
+}
+
+#file-list a {
+  color: #2980b9;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+#file-list a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+  .upload-container {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
   }
 
-  section {
+  .file-label,
+  .upload-btn {
     width: 100%;
-    max-width: none;
+    text-align: center;
+  }
+
+  #device-name-prompt {
+    display: block;
   }
 }
