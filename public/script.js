@@ -1,4 +1,5 @@
 const socket = io();
+const deviceNameInput = document.getElementById("device-name-input");
 
 let currentSocketId = null;
 
@@ -20,21 +21,35 @@ function detectDevice() {
   return deviceType;
 }
 
+const currentDeviceType = detectDevice();
+
+deviceNameInput.placeholder = `e.g. Lucky's ${currentDeviceType}`;
+
 socket.on("getDeviceType", () => {
-  socket.emit("sendDeviceType", detectDevice());
+  socket.emit("sendDeviceType", currentDeviceType);
 });
 
-// Prompt the user for a device name
-document.getElementById("device-name-submit").addEventListener("click", () => {
-  const deviceName = document.getElementById("device-name-input").value.trim();
+function fetchDeviceName() {
+  const deviceName = deviceNameInput.value.trim();
   if (deviceName) {
     // Send the device name to the server
     socket.emit("setDeviceName", deviceName, detectDevice());
-    // document.getElementById("device-name-prompt").style.display = "none";
+    deviceNameInput.value = "";
   } else {
     alert("Please enter a device name.");
   }
+}
+
+// set the device name
+deviceNameInput.addEventListener("keypress", (e) => {
+  if (e.key == "Enter") {
+    fetchDeviceName();
+  }
 });
+
+document
+  .getElementById("device-name-submit")
+  .addEventListener("click", fetchDeviceName);
 
 // Store the current socket ID for future use
 socket.on("connect", () => {
@@ -49,20 +64,24 @@ socket.on("updateDeviceList", (devices) => {
   for (let id in devices) {
     const li = document.createElement("li");
     const deviceType = devices[id].type;
+    let deviceIcon;
 
-    function deviceIcon() {
-      if (deviceType == "Desktop") {
-        return `<i class="fa-solid fa-desktop"></i>`;
-      } else if (deviceType == "Mobile") {
-        return `<i class="fa-solid fa-mobile-screen-button"></i>`;
-      } else if (deviceType == "Tablet") {
-        return `<i class="fa-solid fa-tablet-screen-button"></i>`;
-      }
+    switch (deviceType) {
+      case "Desktop":
+        deviceIcon = `<i class="fa-solid fa-desktop"></i>`;
+        break;
+      case "Mobile":
+        deviceIcon = `<i class="fa-solid fa-mobile-screen-button"></i>`;
+        break;
+      case "Tablet":
+        deviceIcon = `<i class="fa-solid fa-tablet-screen-button"></i>`;
+        break;
+      default:
+        deviceIcon = ""; // Handle any unexpected device types
     }
 
-    li.innerHTML = `${deviceIcon()} ${
-      devices[id].name ? `${devices[id].name}` : ""
-    } (device id: ${id})`;
+    const deviceName = devices[id].name || ""; // Fallback to an empty string if name is undefined
+    li.innerHTML = `${deviceIcon} ${deviceName} (device id: ${id})`;
 
     deviceList.appendChild(li);
   }

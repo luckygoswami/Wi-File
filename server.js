@@ -69,10 +69,10 @@ io.on("connection", (socket) => {
   io.emit("getDeviceType");
 
   // Store the connected device
-  socket.on("sendDeviceType", (detectDevice) => {
+  socket.on("sendDeviceType", (currentDeviceType) => {
     connectedDevices[socket.id] = {
       id: socket.id,
-      type: detectDevice,
+      type: currentDeviceType,
     };
 
     // Broadcast the updated list of devices
