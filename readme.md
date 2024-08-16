@@ -1,4 +1,4 @@
-# How to Use the Wi-Fi File Sharing App
+# How to Use the Wi-File Sharing App
 
 ## Introduction
 
