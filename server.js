@@ -4,6 +4,7 @@ const socketIo = require("socket.io");
 const path = require("path");
 const multer = require("multer");
 const fs = require("fs");
+const os = require("os");
 
 const app = express();
 const server = http.createServer(app);
@@ -104,5 +105,47 @@ io.on("connection", (socket) => {
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(
+    `Server started at port: ${PORT} \npress Ctrl + C to stop the application\n`
+  );
 });
+
+// Fetch ipv4 address
+function getIPv4Address() {
+  const interfaces = os.networkInterfaces();
+  let ipv4Address = "";
+
+  for (const interfaceName in interfaces) {
+    const iface = interfaces[interfaceName];
+
+    for (const alias of iface) {
+      if (alias.family === "IPv4" && !alias.internal) {
+        ipv4Address = alias.address;
+        break;
+      }
+    }
+
+    if (ipv4Address) {
+      break;
+    }
+  }
+
+  return ipv4Address;
+}
+
+// Using dynamic import of 'open' module
+(async () => {
+  const open = (await import("open")).default;
+
+  // URL to be opened
+  const url = `http://${getIPv4Address()}:${PORT}`;
+
+  // Open the URL in the default web browser
+  open(url)
+    .then(() =>
+      console.log(
+        `Wi-File opened in the browser with url: ${url}\nMake sure to open the same url in other devices.\n`
+      )
+    )
+    .catch((err) => console.error("Error opening the URL:", err));
+})();
