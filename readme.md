@@ -1,4 +1,4 @@
-# How to Use the Wi-File Sharing App
+# Wi-File: Files sharing WebApp
 
 ## Introduction
 
@@ -10,6 +10,22 @@ This web app allows you to easily share files across multiple devices connected 
 - **File Upload:** Upload files to share with other devices on the network.
 - **File List:** View and download files shared by others, with information about which device shared each file.
 - **Auto Cleanup:** The upload directory is automatically cleared when all devices disconnect.
+
+## Installation
+
+To install Wi-File, follow these steps:
+
+1. **Run the Installer**  
+   Double-click the downloaded installer file to begin the installation process.
+
+2. **Automatic Installation**  
+   The installation process is automated and will proceed in the command prompt. No additional steps are required from your end.
+
+3. **Shortcut Creation**  
+   Upon successful installation, a Wi-File shortcut will be automatically created on your desktop and in the Start Menu for easy access.
+
+4. **Completion**  
+   Once the installation is complete, you can immediately start using Wi-File by clicking the shortcut.
 
 ## Steps to Use
 
