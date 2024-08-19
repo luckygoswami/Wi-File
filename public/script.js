@@ -1,5 +1,6 @@
 const socket = io();
 const deviceNameInput = document.getElementById("device-name-input");
+const urlInfo = document.querySelector("a.url");
 
 // Animation for set button
 const setButton = document.querySelector(".set-button");
@@ -19,6 +20,12 @@ function setButtonAnimation() {
 }
 
 let currentSocketId = null;
+
+// Set URL with IP address
+socket.on("sendIP", (IPaddress, PORT) => {
+  urlInfo.href = `http://${IPaddress}:${PORT}`;
+  urlInfo.textContent = `${IPaddress}:${PORT}`;
+});
 
 // Detect device type from window oject
 function detectDevice() {
