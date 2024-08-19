@@ -1,7 +1,7 @@
 @echo off
 
 :: Command 1: Install Node.js via winget and set environment variables
-echo Installing Node.js...
+echo Installing Node.js to use Wi-File...
 winget install OpenJS.NodeJS
 if %errorlevel% neq 0 (
     echo Failed to install Node.js. Exiting...
@@ -12,25 +12,20 @@ if %errorlevel% neq 0 (
 set "NODE_PATH=%ProgramFiles%\nodejs"
 set PATH=%NODE_PATH%;%PATH%
 
-:: Pause to ensure the installation is complete
-echo Node.js installation complete. Press any key to continue...
-pause
-
-:: Command 2: Run npm install
-echo Running npm install...
+:: Command 2: execute shicmo.bat script
+echo creating desktop and start menu shortcut...
 start cmd /c "shicmo.bat"
 if %errorlevel% neq 0 (
-    echo npm install failed. Exiting...
+    echo shicmo.bat execution failed. Exiting...
     exit /b %errorlevel%
 )
 
-echo All commands executed successfully.
-
-:: Automatically execute shicmo.bat script
-echo Running shicmo.bat...
+:: Command 3: Run npm install
+echo Installing dependencies required for the app...
+echo Don't worry Installation is about to finish!
 npm i
 if %errorlevel% neq 0 (
-    echo shicmo.bat execution failed. Exiting...
+    echo npm install failed. Exiting...
     exit /b %errorlevel%
 )
 
