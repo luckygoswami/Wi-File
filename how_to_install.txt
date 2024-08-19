@@ -1,0 +1,16 @@
+How to Install Wi-File
+
+1. Run the Installer
+Double-click the downloaded installer file to begin the installation process.
+
+2. Automatic Installation
+The installation process is automated and will proceed in the command prompt. No additional steps are required from your end.
+
+3. Shortcut Creation
+Upon successful installation, a Wi-File shortcut will be automatically created on your desktop and in the Start Menu for easy access.
+
+4. Completion
+Once the installation is complete, you can immediately start using Wi-File by clicking the shortcut.
+
+Thank you for choosing Wi-File!
+
