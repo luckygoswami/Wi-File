@@ -93,6 +93,8 @@ io.on("connection", (socket) => {
 
   io.emit("getDeviceType");
 
+  io.emit("sendIP", getIPv4Address(), PORT);
+
   // Store the connected device
   socket.on("sendDeviceType", (currentDeviceType) => {
     connectedDevices[socket.id] = {
