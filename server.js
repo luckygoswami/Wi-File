@@ -43,23 +43,24 @@ function getIPv4Address() {
 app.use(express.static(path.join(__dirname, "public")));
 
 // Handle file uploads
-app.post("/upload", upload.single("file"), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send("No file uploaded.");
+app.post("/upload", upload.array("files", 10), (req, res) => {
+  const files = req.files;
+
+  if (!files) {
+    return res.status(400).send("No files uploaded.");
   }
 
-  // Find the device name associated with the socket ID
-  const deviceName = connectedDevices[req.body.socketId]?.name || undefined;
-  const filePath = `/uploads/${req.file.filename}`;
-
-  // Emit the file upload event with the file info and device name
-  io.emit("fileUploaded", {
-    fileName: req.file.originalname,
-    filePath: filePath,
-    deviceName: deviceName,
+  files.forEach((file) => {
+    console.log(`File received: ${file.originalname}`);
+    // Emit a socket event for each file
+    io.emit("fileUploaded", {
+      fileName: file.originalname,
+      filePath: `/uploads/${file.filename}`,
+      deviceName: req.body.deviceName,
+    });
   });
 
-  res.status(200).send("File uploaded successfully.");
+  res.send("Files uploaded successfully.");
 });
 
 // Serve uploaded files

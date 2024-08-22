@@ -114,10 +114,13 @@ socket.on("updateDeviceList", (devices) => {
 
 document.getElementById("file-input").addEventListener("change", function () {
   const fileNameDisplay = document.getElementById("file-name-display");
-  const selectedFile = this.files[0];
+  const files = this.files;
 
-  if (selectedFile) {
-    fileNameDisplay.textContent = `Selected file: ${selectedFile.name}`;
+  if (files.length > 0) {
+    const fileNames = Array.from(files)
+      .map((file) => file.name)
+      .join(", ");
+    fileNameDisplay.textContent = `Selected files: ${fileNames}`;
   } else {
     fileNameDisplay.textContent = "No file chosen";
   }
@@ -126,9 +129,16 @@ document.getElementById("file-input").addEventListener("change", function () {
 // Handle file uploads
 document.getElementById("upload-form").addEventListener("submit", (e) => {
   e.preventDefault();
+
   const formData = new FormData();
   const fileInput = document.getElementById("file-input");
-  formData.append("file", fileInput.files[0]);
+  const files = fileInput.files;
+
+  // Loop through each file and append it to FormData
+  for (let i = 0; i < files.length; i++) {
+    formData.append("files", files[i]);
+  }
+
   formData.append("socketId", currentSocketId);
 
   fetch("/upload", {
@@ -143,7 +153,7 @@ document.getElementById("upload-form").addEventListener("submit", (e) => {
       document.getElementById("file-name-display").textContent = "No file chosen";
     })
     .catch((err) => {
-      console.error("Error uploading file:", err);
+      console.error("Error uploading files:", err);
     });
 });
 
