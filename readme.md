@@ -78,6 +78,14 @@ Ensure all devices you want to share files with are connected to the same Wi-Fi 
 - **Cannot Access the Web App:** Ensure your device is connected to the correct Wi-Fi network and that you’re using the correct IP address and port.
 - **Files Not Uploading:** Check the file size and format. Some browsers may have restrictions on certain file types or sizes.
 
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any issues or questions, please open an issue on the [GitHub repository](https://github.com/luckygoswami/Wi-File).
+
 ---
 
 _Made with 🧠 by LuckyGoswami_

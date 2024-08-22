@@ -143,11 +143,11 @@ server.listen(PORT, () => {
   const url = `http://${getIPv4Address()}:${PORT}`;
 
   // Open the URL in the default web browser
-  // open(url)
-  //   .then(() =>
-  //     console.log(
-  //       `Wi-File opened in the browser with url: ${url}\nMake sure to open the same url in other devices.\n`
-  //     )
-  //   )
-  //   .catch((err) => console.error("Error opening the URL:", err));
+  open(url)
+    .then(() =>
+      console.log(
+        `Wi-File opened in the browser with url: ${url}\nMake sure to open the same url in other devices.\n`
+      )
+    )
+    .catch((err) => console.error("Error opening the URL:", err));
 })();
