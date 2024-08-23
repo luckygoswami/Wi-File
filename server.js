@@ -56,7 +56,7 @@ app.post("/upload", upload.array("files", 10), (req, res) => {
     io.emit("fileUploaded", {
       fileName: file.originalname,
       filePath: `/uploads/${file.filename}`,
-      deviceName: req.body.deviceName,
+      deviceName: connectedDevices[req.body.socketId]?.name || undefined,
     });
   });
 

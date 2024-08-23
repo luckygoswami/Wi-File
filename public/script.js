@@ -112,6 +112,7 @@ socket.on("updateDeviceList", (devices) => {
   }
 });
 
+// Updates file-name-display with the selected file names or "No file chosen" if none.
 document.getElementById("file-input").addEventListener("change", function () {
   const fileNameDisplay = document.getElementById("file-name-display");
   const files = this.files;
@@ -174,9 +175,9 @@ function updateFileList(files) {
       const link = document.createElement("a");
       link.href = file.filePath;
       link.download = file.fileName;
-      link.innerHTML = `${file.fileName} ${
+      link.innerHTML = `<span class="file-name">${file.fileName}</span>${
         file.deviceName
-          ? ` <span style="font-weight: lighter;">-shared by ${file.deviceName}</span>`
+          ? ` <span class="shared-by" style="font-weight: lighter;"> -shared by ${file.deviceName}</span>`
           : ""
       }`;
       li.appendChild(link);
@@ -189,8 +190,9 @@ function updateFileList(files) {
 socket.on("fileUploaded", (file) => {
   const existingFiles = [...document.querySelectorAll("#file-list li")].map((li) => {
     const link = li.querySelector("a");
+    const fileNameSpan = link.querySelector(".file-name");
     return {
-      fileName: link.textContent.split(" ")[0],
+      fileName: fileNameSpan.textContent,
       filePath: link.href,
       deviceName: link.textContent.split("shared by ")[1] || "",
     };
