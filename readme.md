@@ -15,16 +15,22 @@ This web app allows you to easily share files across multiple devices connected 
 
 To install Wi-File, follow these steps:
 
-1. **Run the Installer**  
+1. **Download the app files**  
+   Cick on [download Wi-File](https://github.com/luckygoswami/Wi-File/archive/refs/heads/main.zip) to download app files in compressed format.
+
+2. **Extract the file**  
+   Extract the downloaded file using any extractor e.g. winrar.
+
+3. **Run the Installer**  
    Double-click the downloaded installer file to begin the installation process.
 
-2. **Automatic Installation**  
+4. **Automatic Installation**  
    The installation process is automated and will proceed in the command prompt. No additional steps are required from your end.
 
-3. **Shortcut Creation**  
+5. **Shortcut Creation**  
    Upon successful installation, a Wi-File shortcut will be automatically created on your desktop and in the Start Menu for easy access.
 
-4. **Completion**  
+6. **Completion**  
    Once the installation is complete, you can immediately start using Wi-File by clicking the shortcut.
 
 ## Steps to Use
