@@ -84,13 +84,23 @@ Ensure all devices you want to share files with are connected to the same Wi-Fi 
 - **Cannot Access the Web App:** Ensure your device is connected to the correct Wi-Fi network and that you’re using the correct IP address and port.
 - **Files Not Uploading:** Check the file size and format. Some browsers may have restrictions on certain file types or sizes.
 
+## Contributing
+
+Contributions are welcome! Please follow these steps:
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/new-feature`).
+3. Commit your changes (`git commit -m "Add some feature"`).
+4. Push to the branch (`git push origin feature/new-feature`).
+5. Create a new Pull Request.
+
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more information.
 
 ## Contact
 
-For any issues or questions, please open an issue on the [GitHub repository](https://github.com/luckygoswami/Wi-File).
+If you have any questions or suggestions, feel free to open an issue on GitHub or contact me directly via [GitHub Issues](https://github.com/luckygoswami/Wi-File/issues).
 
 ---
 
