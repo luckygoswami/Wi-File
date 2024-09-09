@@ -82,6 +82,7 @@ Ensure all devices you want to share files with are connected to the same Wi-Fi 
 ## Troubleshooting
 
 - **Cannot Access the Web App:** Ensure your device is connected to the correct Wi-Fi network and that you’re using the correct IP address and port.
+- **Firewall setup** Make sure that you're connected to the private network or your firewall is not blocking the requests to the port.
 - **Files Not Uploading:** Check the file size and format. Some browsers may have restrictions on certain file types or sizes.
 
 ## Contributing
