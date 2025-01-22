@@ -16,7 +16,7 @@ This web app allows you to easily share files across multiple devices connected 
 To install Wi-File, follow these steps:
 
 1. **Download the app files**  
-   [Download Wi-File](https://github.com/luckygoswami/Wi-File/archive/refs/heads/main.zip) app files in compressed format or clone this repository.
+   [Download Wi-File](https://github.com/luckygoswami-risky/Wi-File/archive/refs/heads/main.zip) app files in compressed format or clone this repository.
 
 2. **Extract the file**  
    Extract the downloaded file using any extractor e.g. winrar.
@@ -101,7 +101,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ## Contact
 
-If you have any questions or suggestions, feel free to open an issue on GitHub or contact me directly via [GitHub Issues](https://github.com/luckygoswami/Wi-File/issues).
+If you have any questions or suggestions, feel free to open an issue on GitHub or contact me directly via [GitHub Issues](https://github.com/luckygoswami-risky/Wi-File/issues).
 
 ---
 
